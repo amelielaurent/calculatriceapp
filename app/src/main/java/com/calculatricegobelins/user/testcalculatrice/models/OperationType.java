@@ -6,6 +6,7 @@ public enum OperationType {
     MUTIPLICATION("*"),
     DIVISION("/"),
     PERCENT("%"),
+    INVERSE("+/-"),
     UNKOWN("NA");
 
     private String value;

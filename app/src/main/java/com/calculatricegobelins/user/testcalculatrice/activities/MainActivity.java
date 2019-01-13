@@ -127,6 +127,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bt_percent:
                 return OperationType.PERCENT;
 
+            case R.id.bt_plusminus:
+                return OperationType.INVERSE;
         }
 
         return OperationType.UNKOWN;

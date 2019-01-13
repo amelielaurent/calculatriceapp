@@ -34,6 +34,8 @@ public class Operation {
                 return result = doMultiplication();
             case PERCENT:
                 return result = doPercent();
+            case INVERSE:
+                return result = doInverse();
             default:
                 return 0.0;
         }
@@ -57,6 +59,10 @@ public class Operation {
 
     private double doPercent() {
         return this.number1 / 100;
+    }
+
+    private double doInverse() {
+        return this.number1 * (-1);
     }
 
 }
