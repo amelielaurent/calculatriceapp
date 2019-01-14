@@ -133,7 +133,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             case "NB": // Chiffre
-                result.append(button.getText());
+                //Limiter le nombre de chiffres affichés
+                if (result.length() < 20) {
+                    result.append(button.getText());
+                }
+                else {
+                    result.append("");
+                }
                 break;
             default:
                 break;
