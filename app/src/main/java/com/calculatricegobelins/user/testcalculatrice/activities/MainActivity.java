@@ -1,12 +1,14 @@
 package com.calculatricegobelins.user.testcalculatrice.activities;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.calculatricegobelins.user.testcalculatrice.R;
+import com.calculatricegobelins.user.testcalculatrice.fragments.MainFragment;
 import com.calculatricegobelins.user.testcalculatrice.models.Operation;
 import com.calculatricegobelins.user.testcalculatrice.models.OperationType;
 
@@ -22,20 +24,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
 
         TextView result = findViewById(R.id.tv_result);
-        result.setText("0");
+        //result.setText("0");
+
+        showMainScreen();
+
+    }
+
+    private void showMainScreen(){
+        MainFragment fragment = new MainFragment();
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.fragment_container, fragment);
+
+        transaction.addToBackStack(null);
+
+        transaction.commit();
     }
 
 
     /**
-     * Est appelées lorsque l'on clique sur un bouton
+     * Est appelée lorsque l'on clique sur un bouton
      *
      * @param v La vue à l'origine de l'événement
      */
+
+
     @Override
     public void onClick(View v) {
+
 
         if (!(v instanceof Button)) {
             return;
@@ -62,11 +82,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case "AC": // Effacement
 
                 result.setText("0");
-                this.handleOperation(button);
+                MainFragment.handleOperation(button);
                 break;
 
             case "OP": // Opération
-                operationType = this.handleOperation(button);
+                operationType = MainFragment.handleOperation(button);
                 result.append(operationType.toString());
                 break;
 
@@ -100,38 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
-    }
 
-
-    /**
-     * Permet de récupérer le type de l'opération actuelle et effectue l'opération
-     *
-     * @param btn Le bouton qui a été cliqué
-     * @return String
-     */
-    private OperationType handleOperation(Button btn) {
-        int bt_id = btn.getId();
-        switch (bt_id) {
-            case R.id.bt_plus:
-                return OperationType.ADDTION;
-
-            case R.id.bt_minus:
-                return OperationType.SOUSTRACTION;
-
-            case R.id.bt_divide:
-                return OperationType.DIVISION;
-
-            case R.id.bt_multiply:
-                return OperationType.MUTIPLICATION;
-
-            case R.id.bt_percent:
-                return OperationType.PERCENT;
-
-            case R.id.bt_plusminus:
-                return OperationType.INVERSE;
-        }
-
-        return OperationType.UNKOWN;
     }
 
     /**
