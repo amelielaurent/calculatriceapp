@@ -84,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:onClick="onClick"
-                android:tag="OP"
+                android:tag="AL"
                 android:text="@string/plusminus"
                 />
         </LinearLayout>
@@ -106,7 +106,7 @@
                 android:layout_height="match_parent"
                 android:text="@string/percent"
                 android:onClick="onClick"
-                android:tag="OP"
+                android:tag="PE"
                 />
         </LinearLayout>
 
