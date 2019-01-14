@@ -96,23 +96,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case "AL":
-                if(result.getText().toString().equals("")){
-                    result.setText("0");
+                if(tvResult.getText().toString().equals("")){
+                    tvResult.setText("0");
                 }else{
-                    String[] parti = result.getText().toString().split(getSplitter());
+                    String[] parti = tvResult.getText().toString().split(getSplitter(operationType));
                     double inverse = Double.parseDouble(parti[0]);
                     inverse = inverse * (-1);
                     String inversefi = String.valueOf(inverse);
-                    result.setText(inversefi);
+                    tvResult.setText(inversefi);
                 }
                 break;
 
             case "PE":
-                String[] partPe = result.getText().toString().split(getSplitter());
+                String[] partPe = tvResult.getText().toString().split(getSplitter(operationType));
                 double percent = Double.parseDouble(partPe[0]);
                 percent = percent / 100;
                 String percentfi = String.valueOf(percent);
-                result.setText(percentfi);
+                tvResult.setText(percentfi);
                 break;
 
             case "OP": // Opération
@@ -180,11 +180,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case "NB": // Chiffre
 
                 //Limiter le nombre de chiffres affichés
-                if (result.length() < 20) {
-                    result.append(button.getText());
+                if (tvResult.length() < 20) {
+                    tvResult.append(button.getText());
                 }
                 else {
-                    result.append("");
+                    tvResult.append("");
                 }
                 break;
             default:
