@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         totalString = String.format(operation.getResult().toString());
 
         //historique.add(operation); pour plus tard, ça va pas ici
-
+        //------
 
     }
 
