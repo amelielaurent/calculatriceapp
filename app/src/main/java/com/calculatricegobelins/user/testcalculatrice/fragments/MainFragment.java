@@ -23,6 +23,7 @@ public class MainFragment extends Fragment{
 
         ImageView btn_historique = view.findViewById(R.id.bt_historique);
 
+        // Ouvrir l'historique lorsqu'on clique sur le bouton
         btn_historique.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
