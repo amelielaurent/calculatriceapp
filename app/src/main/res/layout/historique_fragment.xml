@@ -19,12 +19,12 @@
         android:paddingEnd="15dp"
         />
 
-    <android.support.v7.app.AlertController.RecycleListView
+    <!--<android.support.v7.app.AlertController.RecycleListView
         android:id="@+id/histo_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/histo_title">
 
-    </android.support.v7.app.AlertController.RecycleListView>
+    </android.support.v7.app.AlertController.RecycleListView>-->
 
 </android.support.constraint.ConstraintLayout>
