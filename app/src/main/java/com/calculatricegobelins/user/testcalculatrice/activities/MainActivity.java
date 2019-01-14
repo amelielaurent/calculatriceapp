@@ -85,6 +85,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 MainFragment.handleOperation(button);
                 break;
 
+            case "AL":
+               /* if(result.getText().toString().equals("")){
+                    result.setText("0");
+                }else{
+                    String[] parti = result.getText().toString().split(getSplitter());
+                    double test = Double.parseDouble(parti[0]);
+                    test = test * (-1);
+                    String testfi = String.valueOf(test);
+                    result.setText(testfi);
+                }*/
+                break;
+
             case "OP": // Opération
                 operationType = MainFragment.handleOperation(button);
                 result.append(operationType.toString());
