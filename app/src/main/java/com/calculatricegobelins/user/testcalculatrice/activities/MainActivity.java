@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.calculatricegobelins.user.testcalculatrice.R;
 import com.calculatricegobelins.user.testcalculatrice.fragments.MainFragment;
+import com.calculatricegobelins.user.testcalculatrice.models.Calcul;
 import com.calculatricegobelins.user.testcalculatrice.models.Operation;
 import com.calculatricegobelins.user.testcalculatrice.models.OperationType;
 
@@ -18,13 +19,21 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     List<Operation> historique = new ArrayList<>();
-    String calcul = "";
+    public boolean firstOperation;
+    public double total;
+    public String totalString = "";
+    public String calculString = "";
+    public String previousSpliter = "";
     OperationType operationType = OperationType.UNKOWN;
+    OperationType lastOperationType = OperationType.UNKOWN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
+        firstOperation = true;
+
 
         TextView result = findViewById(R.id.tv_result);
         //result.setText("0");
@@ -63,14 +72,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         String tag = v.getTag().toString();
         Button button = (Button) v;
-        TextView result = findViewById(R.id.tv_result);
+        TextView tvResult = findViewById(R.id.tv_result);
         int bt_id = button.getId();
 
 
-        if (result.getText().toString().equals("0")) {
+        if (tvResult.getText().toString().equals("0")) {
 
             if(bt_id != R.id.bt_point){
-                result.setText("");
+                tvResult.setText("");
             }
         }
 
@@ -81,8 +90,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (tag) {
             case "AC": // Effacement
 
-                result.setText("0");
+                tvResult.setText("0");
                 MainFragment.handleOperation(button);
+                resetCalcul();
                 break;
 
             case "AL":
@@ -98,13 +108,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case "OP": // Opération
+
+                //On détecte de quel opérateur il s'agit
                 operationType = MainFragment.handleOperation(button);
-                result.append(operationType.toString());
+                System.out.println(operationType);
+
+                String[] queryParts;
+                if(lastOperationType == operationType.UNKOWN) {
+                    queryParts = tvResult.getText().toString().split(getSplitter(operationType));
+                }else{
+                    queryParts = tvResult.getText().toString().split(getSplitter(lastOperationType));
+                }
+
+                if(queryParts.length <2) {
+                    System.out.println("nope");
+                    tvResult.append(operationType.toString());
+                }else {
+                    double Number1 = Double.parseDouble(queryParts[0]);
+                    double Number2 = Double.parseDouble(queryParts[1]);
+
+                    doOperation(Number1, Number2);
+
+
+                    displayResult(totalString);
+                    tvResult.append(operationType.toString());
+                }
+
+                lastOperationType = operationType;
+
+
                 break;
 
             case "EQ": // Egal
 
-                String[] parts = result.getText().toString().split(getSplitter());
+                String[] parts;
+                if(lastOperationType == operationType.UNKOWN) {
+                    parts = tvResult.getText().toString().split(getSplitter(operationType));
+                }else{
+                    parts = tvResult.getText().toString().split(getSplitter(lastOperationType));
+                }
 
                 if(parts.length <2) {
                     System.out.println("fuck you");
@@ -114,10 +156,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     double Number1 = Double.parseDouble(parts[0]);
                     double Number2 = Double.parseDouble(parts[1]);
 
-                    Operation theOperation = new Operation(Number1, Number2, operationType);
-                    String resultFinal = String.format(theOperation.getResult().toString());
-                    historique.add(theOperation);
-                    result.setText(resultFinal);
+                    doOperation(Number1, Number2);
+
+                    displayResult(totalString);
+
+                    resetCalcul();
+                    // après avoir appuyé sur égal, on enregistre et on supprime l'opération
+                    //operation = null;
                 }
 
 
@@ -125,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             case "NB": // Chiffre
-                result.append(button.getText());
+                tvResult.append(button.getText());
                 break;
             default:
                 break;
@@ -135,15 +180,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public void doOperation(double Number1, double Number2){
+        if(firstOperation) {
+            // Si on commence une nouvelle opération
+            total = Number1;
+            firstOperation = false;
+        }
+        Operation operation;
+
+        if(lastOperationType == operationType.UNKOWN) {
+            operation = new Operation(total, Number2, operationType);
+
+        }else{
+            operation = new Operation(total, Number2, lastOperationType);
+
+        }
+
+        total = operation.getResult();
+        totalString = String.format(operation.getResult().toString());
+
+        //historique.add(operation); pour plus tard, ça va pas ici
+
+
+    }
+
+    public void displayResult(String text){
+        TextView tvResult = findViewById(R.id.tv_result);
+        tvResult.setText(text);
+    }
+
+    public void resetCalcul(){
+        firstOperation = true;
+        total = 0.0;
+        totalString = "";
+        calculString = "";
+        operationType = OperationType.UNKOWN;
+        lastOperationType = OperationType.UNKOWN;
+    }
+
     /**
      * Gère les cas problématiques de regex avec les opérateurs
      *
      * @return
      */
-    private String getSplitter() {
-        switch (operationType) {
+    private String getSplitter(OperationType type) {
+        switch (type) {
             case ADDTION:
                 return "\\+";
+            case SOUSTRACTION:
+                return "\\-";
             case DIVISION:
                 return "\\/";
             case MUTIPLICATION:
