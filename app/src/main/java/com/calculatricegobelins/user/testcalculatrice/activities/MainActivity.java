@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public double total;
     public String totalString = "";
     public String calculString = "";
-    public String previousSpliter = "";
     OperationType operationType = OperationType.UNKOWN;
     OperationType lastOperationType = OperationType.UNKOWN;
 
@@ -31,26 +30,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-
         firstOperation = true;
-
-
         TextView result = findViewById(R.id.tv_result);
-        //result.setText("0");
-
         showMainScreen();
-
     }
 
     private void showMainScreen(){
         MainFragment fragment = new MainFragment();
-
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
         transaction.replace(R.id.fragment_container, fragment);
-
         transaction.addToBackStack(null);
-
         transaction.commit();
     }
 
@@ -65,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-
         if (!(v instanceof Button)) {
             return;
         }
@@ -75,9 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView tvResult = findViewById(R.id.tv_result);
         int bt_id = button.getId();
 
-
         if (tvResult.getText().toString().equals("0")) {
-
             if(bt_id != R.id.bt_point){
                 tvResult.setText("");
             }
@@ -87,9 +73,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
+        //Compare le tag
         switch (tag) {
             case "AC": // Effacement
-
                 tvResult.setText("0");
                 MainFragment.handleOperation(button);
                 resetCalcul();
@@ -132,19 +118,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     System.out.println("nope");
                     tvResult.append(operationType.toString());
                 }else {
-                    double Number1 = Double.parseDouble(queryParts[0]);
-                    double Number2 = Double.parseDouble(queryParts[1]);
-
-                    doOperation(Number1, Number2);
-
-
+                    double number1 = Double.parseDouble(queryParts[0]);
+                    double number2 = Double.parseDouble(queryParts[1]);
+                    doOperation(number1, number2);
                     displayResult(totalString);
                     tvResult.append(operationType.toString());
                 }
 
                 lastOperationType = operationType;
-
-
                 break;
 
             case "EQ": // Egal
@@ -160,14 +141,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     System.out.println("fuck you");
                     return;
                 }else {
-
-                    double Number1 = Double.parseDouble(parts[0]);
-                    double Number2 = Double.parseDouble(parts[1]);
-
-                    doOperation(Number1, Number2);
-
+                    double number1 = Double.parseDouble(parts[0]);
+                    double number2 = Double.parseDouble(parts[1]);
+                    doOperation(number1, number2);
                     displayResult(totalString);
-
                     resetCalcul();
                     // après avoir appuyé sur égal, on enregistre et on supprime l'opération
                     //operation = null;
@@ -195,28 +172,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void doOperation(double Number1, double Number2){
+    /**
+     *
+     * @param number1
+     * @param number2
+     */
+    public void doOperation(double number1, double number2){
         if(firstOperation) {
             // Si on commence une nouvelle opération
-            total = Number1;
+            total = number1;
             firstOperation = false;
         }
         Operation operation;
 
         if(lastOperationType == operationType.UNKOWN) {
-            operation = new Operation(total, Number2, operationType);
+            operation = new Operation(total, number2, operationType);
 
         }else{
-            operation = new Operation(total, Number2, lastOperationType);
+            operation = new Operation(total, number2, lastOperationType);
 
         }
 
         total = operation.getResult();
         totalString = String.format(operation.getResult().toString());
-
-        //historique.add(operation); pour plus tard, ça va pas ici
-        //------
-
     }
 
     public void displayResult(String text){

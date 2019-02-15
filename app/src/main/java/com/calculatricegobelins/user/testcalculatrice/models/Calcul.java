@@ -2,10 +2,10 @@ package com.calculatricegobelins.user.testcalculatrice.models;
 
 public class Calcul {
 
-    public String entry;
-    public double total;
-    public double resultat;
-    public String calculString;
+    private String entry;
+    private double total;
+    private double resultat;
+    private String calculString;
 
 
     OperationType operationType = OperationType.UNKOWN;
@@ -48,7 +48,6 @@ public class Calcul {
 
         if (parts.length < 2) {
             System.out.println("fuck you");
-            return;
         } else {
 
             double Number1 = Double.parseDouble(parts[0]);

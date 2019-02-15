@@ -1,6 +1,4 @@
 package com.calculatricegobelins.user.testcalculatrice.fragments;
-
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
