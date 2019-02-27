@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * @param number1 double
      * @param number2 double
      */
-    public void doOperation(double number1, double number2) {
+    private void doOperation(double number1, double number2) {
         if (firstOperation) {
             // Si on commence une nouvelle opération
             total = number1;
@@ -259,7 +259,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      *
      * @param text String
      */
-    public void displayResult(String text) {
+    private void displayResult(String text) {
         TextView tvResult = findViewById(R.id.tv_result);
         tvResult.setText(text);
     }
@@ -267,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * Réinitialise le calcul.
      */
-    public void resetCalcul() {
+    private void resetCalcul() {
         firstOperation = true;
         total = 0.0;
         totalString = "";
