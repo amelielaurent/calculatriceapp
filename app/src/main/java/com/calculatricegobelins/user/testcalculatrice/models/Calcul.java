@@ -1,5 +1,12 @@
 package com.calculatricegobelins.user.testcalculatrice.models;
 
+/**
+ * Classe Calcul
+ * @author mickaeldebalme
+ * @author robinsimonklein
+ * @author amelielaurent
+ * Effectue les opérations de calcul.
+ */
 public class Calcul {
 
     private String entry;
@@ -8,8 +15,12 @@ public class Calcul {
     private String calculString;
 
 
-    OperationType operationType = OperationType.UNKOWN;
+    private OperationType operationType = OperationType.UNKOWN;
 
+    /**
+     * Constructor.
+     * @param entry String
+     */
     public Calcul(String entry) {
         this.total = 0.0;
         this.resultat = 0.0;
@@ -17,30 +28,57 @@ public class Calcul {
         this.entry = entry;
     }
 
+    /**
+     * Récupère le total du calcul.
+     * @return double
+     */
     public double getTotal() {
         return total;
     }
 
+    /**
+     * Définit le total du calcul.
+     * @param total double
+     */
     public void setTotal(double total) {
         this.total = total;
     }
 
+    /**
+     * Récupère le résultat du calcul.
+     * @return double
+     */
     public double getResultat() {
         return resultat;
     }
 
+    /**
+     * Définit le résultat du calcul.
+     * @param resultat double
+     */
     public void setResultat(double resultat) {
         this.resultat = resultat;
     }
 
+    /**
+     * Récupère la chaîne de caractères détaillant le calcul.
+     * @return string
+     */
     public String getCalculString() {
         return calculString;
     }
 
+    /**
+     * Définit la chaîne de caractères détaillant le calcul.
+     * @param calculString string
+     */
     public void setCalculString(String calculString) {
         this.calculString = calculString;
     }
 
+    /**
+     * Effectue une opération.
+     */
     public void doOperation() {
 
 
@@ -63,8 +101,7 @@ public class Calcul {
 
     /**
      * Gère les cas problématiques de regex avec les opérateurs
-     *
-     * @return
+     * @return string
      */
     private String getSplitter() {
         switch (operationType) {

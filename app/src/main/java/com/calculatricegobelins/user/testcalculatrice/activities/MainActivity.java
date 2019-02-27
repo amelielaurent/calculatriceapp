@@ -16,6 +16,13 @@ import com.calculatricegobelins.user.testcalculatrice.models.OperationType;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe MainActivity
+ * @author mickaeldebalme
+ * @author robinsimonklein
+ * @author amelielaurent
+ * Points d'entrée et coeur de l'application
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     List<Operation> historique = new ArrayList<>();
@@ -26,6 +33,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     OperationType operationType = OperationType.UNKOWN;
     OperationType lastOperationType = OperationType.UNKOWN;
 
+    /**
+     * A la création de l'activité.
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         showMainScreen();
     }
 
+    /**
+     * Affiche le fragment principal.
+     */
     private void showMainScreen(){
         MainFragment fragment = new MainFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -49,8 +63,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      *
      * @param v La vue à l'origine de l'événement
      */
-
-
     @Override
     public void onClick(View v) {
 
@@ -173,9 +185,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     *
-     * @param number1
-     * @param number2
+     * Effectue une opération.
+     * @param number1 double
+     * @param number2 double
      */
     public void doOperation(double number1, double number2){
         if(firstOperation) {
@@ -197,11 +209,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         totalString = String.format(operation.getResult().toString());
     }
 
+    /**
+     * Affiche le résultat.
+     * @param text String
+     */
     public void displayResult(String text){
         TextView tvResult = findViewById(R.id.tv_result);
         tvResult.setText(text);
     }
 
+    /**
+     * Réinitialise le calcul.
+     */
     public void resetCalcul(){
         firstOperation = true;
         total = 0.0;
@@ -214,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * Gère les cas problématiques de regex avec les opérateurs
      *
-     * @return
+     * @return OperationType
      */
     private String getSplitter(OperationType type) {
         switch (type) {

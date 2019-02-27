@@ -1,5 +1,11 @@
 package com.calculatricegobelins.user.testcalculatrice.models;
 
+/**
+ * Enumeration OperationType.
+ * @author mickaeldebalme
+ * @author robinsimonklein
+ * @author amelielaurent
+ */
 public enum OperationType {
     ADDTION("+"),
     SOUSTRACTION("-"),
@@ -11,7 +17,10 @@ public enum OperationType {
 
     private String value;
 
-    //Constructeur
+    /**
+     * Constructor.
+     * @param value string
+     */
     OperationType(String value){
         this.value = value;
     }

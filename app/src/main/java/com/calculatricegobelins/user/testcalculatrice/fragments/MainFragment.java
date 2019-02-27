@@ -12,8 +12,22 @@ import android.widget.ImageView;
 import com.calculatricegobelins.user.testcalculatrice.R;
 import com.calculatricegobelins.user.testcalculatrice.models.OperationType;
 
+/**
+ * Classe MainFragment
+ * @author mickaeldebalme
+ * @author robinsimonklein
+ * @author amelielaurent
+ * Fragment de la vue principale
+ */
 public class MainFragment extends Fragment{
 
+    /**
+     * Au moment de la création de la vue.
+     * @param inflater LayoutInflater
+     * @param container ViewGroup
+     * @param savedInstanceState Bundle
+     * @return View
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -32,6 +46,9 @@ public class MainFragment extends Fragment{
         return view;
     }
 
+    /**
+     * Change de fragment vers le fragment historique.
+     */
     public void showHistorique(){
         HistoriqueFragment fragment = new HistoriqueFragment();
 
@@ -47,7 +64,7 @@ public class MainFragment extends Fragment{
 
 
     /**
-     * Permet de récupérer le type de l'opération actuelle et effectue l'opération
+     * Permet de récupérer le type de l'opération actuelle et effectue l'opération.
      *
      * @param btn Le bouton qui a été cliqué
      * @return String
