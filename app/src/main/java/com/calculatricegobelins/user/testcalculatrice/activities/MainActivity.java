@@ -9,14 +9,8 @@ import android.widget.TextView;
 
 import com.calculatricegobelins.user.testcalculatrice.R;
 import com.calculatricegobelins.user.testcalculatrice.fragments.MainFragment;
-import com.calculatricegobelins.user.testcalculatrice.models.Calcul;
 import com.calculatricegobelins.user.testcalculatrice.models.Operation;
 import com.calculatricegobelins.user.testcalculatrice.models.OperationType;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Classe MainActivity
@@ -28,7 +22,6 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    List<Operation> historique = new ArrayList<>();
     public boolean firstOperation;
     public double total;
     public String totalString = "";
