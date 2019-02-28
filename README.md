@@ -17,7 +17,7 @@ Nous aurions aimé ajouter un mode scientifique quand la calculatrice est en mod
 
 Cloner le projet :
 
-    git clone https://github.com/amelielaurent/appnews.git
+    git clone https://github.com/amelielaurent/calculatriceapp.git
 
 Lancer l’application : Clic sur la petite flèche verte
 Emulateur : Pixel 2 XL
